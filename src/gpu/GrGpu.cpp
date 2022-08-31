@@ -272,7 +272,10 @@ sk_sp<GrTexture> GrGpu::wrapBackendTexture(const GrBackendTexture& backendTex,
     }
     if (backendTex.width() > caps->maxTextureSize() ||
         backendTex.height() > caps->maxTextureSize()) {
+#if MALI_PRODUCT_ID_450
+#else
         return nullptr;
+#endif
     }
 
     return this->onWrapBackendTexture(backendTex, ownership, cacheable, ioType);
